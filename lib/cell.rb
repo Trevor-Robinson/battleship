@@ -31,4 +31,17 @@ class Cell
 
   end
 
+  def render(ship = false)
+    if @fired == false && @ship != nil && ship == true
+      return 'S'
+    elsif @fired == true && @ship == nil
+      return 'M'
+    elsif @fired == true && @ship != nil && !@ship.sunk?
+      return "H"
+    elsif @fired == true && @ship != nil && @ship.sunk?
+      return "X"
+    else
+      return '.'
+    end
+  end
 end
