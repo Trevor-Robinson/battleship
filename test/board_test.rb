@@ -105,12 +105,8 @@ class Boardtest < Minitest::Test
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
     board.place(cruiser, ["A1", "A2", "A3"])
-    cell_1 = board.cells["A1"]
-    cell_2 = board.cells["A2"]
-    cell_3 = board.cells["A3"]
-    cell1.ship
-    cell2.ship
-    cell3.ship
-    assert_equal cell_3.ship, cell_2.ship
+    # require 'pry'; binding.pry
+
+    assert_equal true,  board.cells["A1"].ship == board.cells["A3"].ship
   end
 end
