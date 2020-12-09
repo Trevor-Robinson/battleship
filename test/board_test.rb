@@ -11,4 +11,16 @@ class Boardtest < Minitest::Test
 
     assert_equal 16, board.cells.length
   end
+
+  def test_valid_coord?
+    board = Board.new
+
+    assert_equal true, board.valid_coord?("B3")
+  end
+
+  def test_invalid_coord?
+    board = Board.new
+
+    assert_equal false, board.valid_coord?("E4")
+  end
 end
