@@ -30,14 +30,27 @@ class Boardtest < Minitest::Test
 
 
     assert_equal false, board.valid_placement?(cruiser, ["A1", "A2"])
-
   end
 
-  def test_valid_placement_consecutive?
+  def test_valid_placement_consecutive_num?
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
 
     assert_equal false, board.valid_placement?(cruiser, ["A1", "A2", "A4"])
+  end
+
+  def test_valid_placement_consecutive_letter?
+    board = Board.new
+    submarine = Ship.new("Submarine", 2)
+
+    assert_equal false, board.valid_placement?(submarine, ["A1", "C1"])
+  end
+
+  def test_valid_placement_diagonal?
+    board = Board.new
+    cruiser = Ship.new("Cruiser", 3)
+
+    assert_equal false, board.valid_placement?(cruiser, ["A1", "B2", "C3"])
   end
 
   def test_seperate_coords_num
@@ -56,5 +69,21 @@ class Boardtest < Minitest::Test
     # require 'pry'; binding.pry
 
     assert_equal [65, 65, 65], coord_letter
+  end
+
+  def test_same_coords_number
+    board = Board.new
+    coords = ["A1", "B1", "C1"]
+    coord_num, coord_letter = board.seperate_coords(coords)
+
+    assert_equal 3, board.check_num_same(coord_num)
+  end
+
+  def test_same_coords_letter
+    board = Board.new
+    coords = ["A2", "A3", "A4"]
+    coord_num, coord_letter = board.seperate_coords(coords)
+
+    assert_equal 3, board.check_letter_same(coord_letter)
   end
 end

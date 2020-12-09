@@ -26,16 +26,14 @@ class Board
       return false
     end
     coord_num, coord_letter = seperate_coords(coords)
-    counter = 1
-    consecutive = 1
-    coord_num.each do |num|
-      if num + 1 == coord_num[counter]
-        consecutive += 1
-      end
-      counter +=1
-    end
-    # require 'pry'; binding.pry
-    if consecutive == ship.length
+
+    consecutive_num = check_consecutive_num(coord_num)
+    consecutive_letter = check_consecutive_letter(coord_letter)
+
+    same_num = check_num_same(coord_num)
+    same_letter = check_letter_same(coord_letter)
+
+    if (consecutive_num == ship.length && same_letter == ship.length) || (consecutive_letter == ship.length && same_num == ship.length)
       return true
     else
       return false
@@ -50,5 +48,53 @@ class Board
       coord_letter << coord.slice(0).ord
     end
     return coord_num, coord_letter
+  end
+
+  def check_consecutive_num(coord_num)
+    counter = 1
+    consecutive_num = 1
+    coord_num.each do |num|
+      if num + 1 == coord_num[counter]
+        consecutive_num += 1
+      end
+      counter +=1
+    end
+    return consecutive_num
+  end
+
+  def check_consecutive_letter(coord_letter)
+    counter = 1
+    consecutive_letter = 1
+    coord_letter.each do |letter|
+      if letter + 1 == coord_letter[counter]
+        consecutive_letter += 1
+      end
+      counter +=1
+    end
+    return consecutive_letter
+  end
+
+  def check_num_same(coord_num)
+    counter = 1
+    same_num = 1
+    coord_num.each do |num|
+      if num == coord_num[counter]
+        same_num += 1
+      end
+      counter +=1
+    end
+    return same_num
+  end
+
+  def check_letter_same(coord_letter)
+    counter = 1
+    same_letter = 1
+    coord_letter.each do |letter|
+      if letter == coord_letter[counter]
+        same_letter += 1
+      end
+      counter +=1
+    end
+    return same_letter
   end
 end
