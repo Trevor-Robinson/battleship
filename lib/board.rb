@@ -40,6 +40,12 @@ class Board
     end
   end
 
+  def place(ship, coords)
+    coords.each do |coord|
+     @cells[coord].place_ship(ship)
+   end
+  end
+
   def seperate_coords(coords)
     coord_num = []
     coord_letter = []
