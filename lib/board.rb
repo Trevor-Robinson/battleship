@@ -22,9 +22,12 @@ class Board
   end
 
   def valid_placement?(ship, coords)
-    if coords.length != ship.length
-      return false
+    return false if coords.length != ship.length
+
+    coords.each do |coord|
+      return false if !@cells[coord].empty?
     end
+
     coord_num, coord_letter = seperate_coords(coords)
 
     consecutive_num = check_consecutive_num(coord_num)
