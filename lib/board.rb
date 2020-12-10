@@ -25,15 +25,20 @@ class Board
     if coords.length != ship.length
       return false
     end
-    coord_num, coord_letter = seperate_coords(coords)
+
 
     consecutive_num = check_consecutive_num(coord_num)
     consecutive_letter = check_consecutive_letter(coord_letter)
     consecutive_num_decrease = check_consecutive_num_decrease(coord_num)
     consecutive_letter_decrease = check_consecutive_letter_decrease(coord_letter)
 
-    same_num = check_num_same(coord_num)
-    same_letter = check_letter_same(coord_letter)
+    coords.each do |coord|
+      if @cells[coord].empty?
+        coord_num, coord_letter = seperate_coords(coords)
+
+        consecutive_num = check_consecutive_num(coord_num)
+        consecutive_letter = check_consecutive_letter(coord_letter)
+
 
     if (consecutive_num == ship.length && same_letter == ship.length) ||
       (consecutive_letter == ship.length && same_num == ship.length) ||
