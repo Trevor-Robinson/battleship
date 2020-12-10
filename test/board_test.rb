@@ -7,24 +7,28 @@ require './lib/board'
 class Boardtest < Minitest::Test
 
   def test_it_has_cells
+    # skip
     board = Board.new
 
     assert_equal 16, board.cells.length
   end
 
   def test_valid_coord?
+    # skip
     board = Board.new
 
     assert_equal true, board.valid_coord?("B3")
   end
 
   def test_invalid_coord?
+    # skip
     board = Board.new
 
     assert_equal false, board.valid_coord?("E4")
   end
 
   def test_valid_placement_length?
+    # skip
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
 
@@ -33,6 +37,7 @@ class Boardtest < Minitest::Test
   end
 
   def test_valid_placement_consecutive_num?
+    # skip
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
 
@@ -40,6 +45,7 @@ class Boardtest < Minitest::Test
   end
 
   def test_valid_placement_consecutive_letter?
+    # skip
     board = Board.new
     submarine = Ship.new("Submarine", 2)
 
@@ -47,6 +53,7 @@ class Boardtest < Minitest::Test
   end
 
   def test_valid_placement_diagonal?
+    # skip
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
 
@@ -54,6 +61,7 @@ class Boardtest < Minitest::Test
   end
 
   def test_valid_placement_true?
+    # skip
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
 
@@ -61,13 +69,25 @@ class Boardtest < Minitest::Test
   end
 
   def test_valid_placement_true_for_sub?
+    # skip
     board = Board.new
     submarine = Ship.new("Submarine", 2)
 
     assert_equal true, board.valid_placement?(submarine, ["A1", "A2"])
   end
 
+  def test_valid_placement_decrease?
+    board = Board.new
+    cruiser = Ship.new("Cruiser", 3)
+    board.valid_placement?(cruiser, ["A3", "A2", "A1"])
+    # require 'pry'; binding.pry
+
+
+    assert_equal true, board.valid_placement?(cruiser, ["A3", "A2", "A1"])
+  end
+
   def test_seperate_coords_num
+    # skip
     board = Board.new
     coords = ["A1", "A2", "A4"]
     coord_num, coord_letter = board.seperate_coords(coords)
@@ -77,6 +97,7 @@ class Boardtest < Minitest::Test
   end
 
   def test_seperate_coords_letter
+    # skip
     board = Board.new
     coords = ["A1", "A2", "A4"]
     coord_num, coord_letter = board.seperate_coords(coords)
@@ -86,6 +107,7 @@ class Boardtest < Minitest::Test
   end
 
   def test_same_coords_number
+    # skip
     board = Board.new
     coords = ["A1", "B1", "C1"]
     coord_num, coord_letter = board.seperate_coords(coords)
@@ -94,6 +116,7 @@ class Boardtest < Minitest::Test
   end
 
   def test_same_coords_letter
+    # skip
     board = Board.new
     coords = ["A2", "A3", "A4"]
     coord_num, coord_letter = board.seperate_coords(coords)
@@ -102,6 +125,7 @@ class Boardtest < Minitest::Test
   end
 
   def test_it_can_place_a_ship_in_cells
+    # skip
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
     board.place(cruiser, ["A1", "A2", "A3"])

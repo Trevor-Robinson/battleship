@@ -29,11 +29,16 @@ class Board
 
     consecutive_num = check_consecutive_num(coord_num)
     consecutive_letter = check_consecutive_letter(coord_letter)
+    consecutive_num_decrease = check_consecutive_num_decrease(coord_num)
+    consecutive_letter_decrease = check_consecutive_letter_decrease(coord_letter)
 
     same_num = check_num_same(coord_num)
     same_letter = check_letter_same(coord_letter)
 
-    if (consecutive_num == ship.length && same_letter == ship.length) || (consecutive_letter == ship.length && same_num == ship.length)
+    if (consecutive_num == ship.length && same_letter == ship.length) ||
+      (consecutive_letter == ship.length && same_num == ship.length) ||
+      (consecutive_num_decrease == ship.length  && same_letter == ship.length) ||
+      (consecutive_letter_decrease == ship.length  && same_num == ship.length)
       return true
     else
       return false
@@ -68,6 +73,21 @@ class Board
     return consecutive_num
   end
 
+  def check_consecutive_num_decrease(coord_num)
+    counter = 1
+    consecutive_num_decrease = 1
+    coord_num.reverse!
+    # require 'pry'; binding.pry
+    coord_num.each do |num|
+      if num + 1 == coord_num[counter]
+        consecutive_num_decrease += 1
+      end
+      counter +=1
+    end
+    return consecutive_num_decrease
+  end
+
+
   def check_consecutive_letter(coord_letter)
     counter = 1
     consecutive_letter = 1
@@ -78,6 +98,19 @@ class Board
       counter +=1
     end
     return consecutive_letter
+  end
+
+  def check_consecutive_letter_decrease(coord_letter)
+    counter = 1
+    consecutive_letter_decrease = 1
+    coord_letter.reverse!
+    coord_letter.each do |letter|
+      if letter + 1 == coord_letter[counter]
+        consecutive_letter_decrease += 1
+      end
+      counter +=1
+    end
+    return consecutive_letter_decrease
   end
 
   def check_num_same(coord_num)
