@@ -27,7 +27,7 @@ class Gametest < Minitest::Test
   def test_get_coords_right
     game = Game.new
     cruiser = Ship.new("Cruiser", 3)
-    game.get_coords_right(cruiser)
-    require 'pry'; binding.pry
+    game.get_coords_left(cruiser)
+
   end
 end

@@ -39,4 +39,16 @@ class Game
 
     return new_coords
   end
+
+  def get_coords_left(ship)
+    letter_coord, num_coord = split_random_coord
+    new_coords = ["#{letter_coord}#{num_coord}"]
+    number_of_loops = ship.length - 1
+    number_of_loops.times do |num|
+      new_num = num_coord.to_i - num - 1
+      new_coords << "#{letter_coord}#{new_num}"
+    end
+    require 'pry'; binding.pry
+    return new_coords
+  end
 end
