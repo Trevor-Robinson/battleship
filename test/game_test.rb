@@ -17,9 +17,17 @@ class Gametest < Minitest::Test
   end
 
   def test_computer_can_place_ship
+    skip
     game = Game.new
     game.computer_place_ship
 
     assert_equal true, true
+  end
+
+  def test_get_coords_right
+    game = Game.new
+    cruiser = Ship.new("Cruiser", 3)
+    game.get_coords_right(cruiser)
+    require 'pry'; binding.pry
   end
 end

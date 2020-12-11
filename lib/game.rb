@@ -14,17 +14,29 @@ class Game
 
   def computer_place_ship
     cruiser = Ship.new("cruiser", 3)
-    letter_coord, num_coord = computer_get_random_coord.split('')
+
     coords = []
     number_of_loops = cruiser.length - 1
-
-     number_of_loops.times do |num|
+    number_of_loops.times do |num|
       new_letter = (letter_coord.ord += num + 1).chr
 
       # Seperate into two helper methods: letter increment and number increment
     end
+  end
 
+  def split_random_coord
+    letter_coord, num_coord = computer_get_random_coord.split('')
+  end
 
+  def get_coords_right(ship)
+    letter_coord, num_coord = split_random_coord
+    new_coords = ["#{letter_coord}#{num_coord}"]
+    number_of_loops = ship.length - 1
+    number_of_loops.times do |num|
+      new_num = num_coord.to_i + num + 1
+      new_coords << "#{letter_coord}#{new_num}"
+    end
 
+    return new_coords
   end
 end
