@@ -23,6 +23,7 @@ class Boardtest < Minitest::Test
   def test_invalid_coord?
     # skip
     board = Board.new
+    board.cells_to_array
 
     assert_equal false, board.valid_coord?("E4")
   end

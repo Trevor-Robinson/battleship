@@ -17,6 +17,10 @@ class Board
     end
   end
 
+  def cells_to_array
+    @cells.keys
+  end
+
   def valid_coord?(coord)
     @cells.key?(coord)
   end
