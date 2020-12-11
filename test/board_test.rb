@@ -185,4 +185,53 @@ class Boardtest < Minitest::Test
 
     assert_equal expected_board, board.render(true)
   end
+
+  def test_board_can_be_fired_upon
+    board = Board.new
+    cruiser = Ship.new("Cruiser", 3)
+    board.place(cruiser, ["A1", "A2", "A3"])
+    board.cells["A1"].fire_upon
+
+    expected_board = "  1 2 3 4 \n" +
+                     "A H S S .\n" +
+                     "B . . . .\n" +
+                     "C . . . .\n" +
+                     "D . . . ."
+      assert_equal expected_board, board.render(true)
+  end
+
+  def test_board_can_fire_and_miss
+    board = Board.new
+    cruiser = Ship.new("Cruiser", 3)
+    board.place(cruiser, ["A1", "A2", "A3"])
+    board.cells["A1"].fire_upon
+    board.cells["B1"].fire_upon
+
+    expected_board = "  1 2 3 4 \n" +
+                     "A H S S .\n" +
+                     "B M . . .\n" +
+                     "C . . . .\n" +
+                     "D . . . ."
+      assert_equal expected_board, board.render(true)
+    end
+
+    def test_it_can_display_sunk_ship
+      board = Board.new
+      cruiser = Ship.new("Cruiser", 3)
+      submarine = Ship.new("Submarine", 2)
+      board.place(cruiser, ["A1", "A2", "A3"])
+      board.place(submarine, ["C2", "D2"])
+      board.cells["A1"].fire_upon
+      board.cells["B1"].fire_upon
+      board.cells["C2"].fire_upon
+      board.cells["D2"].fire_upon
+
+      expected_board = "  1 2 3 4 \n" +
+                       "A H S S .\n" +
+                       "B M . . .\n" +
+                       "C . X . .\n" +
+                       "D . X . ."
+
+      assert_equal expected_board, board.render(true)
+    end
 end
