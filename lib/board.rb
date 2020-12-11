@@ -139,4 +139,22 @@ class Board
     end
     return same_letter
   end
+
+  def render(ship=false)
+    board = "  1 2 3 4 "
+    counter = 0
+    @cells.each do |coords, cell|
+      if counter % 4 == 0
+        board += "\n#{coords[0]}"
+      end
+      board += " " + cell.render(ship)
+      counter += 1
+    end
+
+    # 4.times do |num|
+    #   board += (65 + num).chr + " #{} . . . \n"
+    # end
+    #require 'pry'; binding.pry
+    return board
+  end
 end
