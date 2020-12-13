@@ -21,6 +21,28 @@ class Board
     @cells.keys
   end
 
+  def get_random_coord
+    cells_to_array.sample
+  end
+
+  def check_random_coord(coord)
+    #require 'pry'; binding.pry
+    if @cells[coord].empty? == true
+      return true
+    else
+      return false
+    end
+  end
+
+  def return_valid_random_coord
+    random_coord = get_random_coord
+
+    until check_random_coord(random_coord)
+      random_coord = get_random_coord
+    end
+    return random_coord
+  end
+
   def valid_coord?(coord)
     @cells.key?(coord)
   end
@@ -29,6 +51,7 @@ class Board
     return false if coords.length != ship.length
 
     coords.each do |coord|
+      return false if !valid_coord?(coord)
       return false if !@cells[coord].empty?
     end
 
@@ -155,10 +178,6 @@ class Board
       counter += 1
     end
 
-    # 4.times do |num|
-    #   board += (65 + num).chr + " #{} . . . \n"
-    # end
-    #require 'pry'; binding.pry
     return board
   end
 end

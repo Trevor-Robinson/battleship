@@ -17,17 +17,14 @@ class Gametest < Minitest::Test
   end
 
   def test_computer_can_place_ship
-    skip
-    game = Game.new
-    game.computer_place_ship
-
-    assert_equal true, true
-  end
-
-  def test_get_coords_right
     game = Game.new
     cruiser = Ship.new("Cruiser", 3)
-    game.get_coords_down(cruiser)
+    submarine = Ship.new("Submarine", 2)
+    game.computer_place_ship(cruiser)
+    game.computer_place_ship(submarine)
 
+    puts game.board.render(true)
+
+    assert_equal 5, game.board.render(true).count("S")
   end
 end
