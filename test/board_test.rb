@@ -29,7 +29,7 @@ class Boardtest < Minitest::Test
   end
 
   def test_valid_placement_length?
-    # skip
+    #skip
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
 
@@ -38,7 +38,7 @@ class Boardtest < Minitest::Test
   end
 
   def test_valid_placement_consecutive_num?
-    # skip
+    #skip
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
 
@@ -46,7 +46,7 @@ class Boardtest < Minitest::Test
   end
 
   def test_valid_placement_consecutive_letter?
-    # skip
+    #skip
     board = Board.new
     submarine = Ship.new("Submarine", 2)
 
@@ -54,7 +54,7 @@ class Boardtest < Minitest::Test
   end
 
   def test_valid_placement_diagonal?
-    # skip
+    #skip
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
 
@@ -62,7 +62,7 @@ class Boardtest < Minitest::Test
   end
 
   def test_valid_placement_true?
-    # skip
+    #skip
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
 
@@ -78,6 +78,7 @@ class Boardtest < Minitest::Test
   end
 
   def test_valid_placement_decrease?
+    #skip
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
     board.valid_placement?(cruiser, ["A3", "A2", "A1"])
@@ -88,7 +89,7 @@ class Boardtest < Minitest::Test
   end
 
   def test_seperate_coords_num
-    # skip
+    #skip
     board = Board.new
     coords = ["A1", "A2", "A4"]
     coord_num, coord_letter = board.seperate_coords(coords)
@@ -98,7 +99,7 @@ class Boardtest < Minitest::Test
   end
 
   def test_seperate_coords_letter
-    # skip
+    #skip
     board = Board.new
     coords = ["A1", "A2", "A4"]
     coord_num, coord_letter = board.seperate_coords(coords)
@@ -108,7 +109,7 @@ class Boardtest < Minitest::Test
   end
 
   def test_same_coords_number
-    # skip
+    #skip
     board = Board.new
     coords = ["A1", "B1", "C1"]
     coord_num, coord_letter = board.seperate_coords(coords)
@@ -117,7 +118,7 @@ class Boardtest < Minitest::Test
   end
 
   def test_same_coords_letter
-    # skip
+    #skip
     board = Board.new
     coords = ["A2", "A3", "A4"]
     coord_num, coord_letter = board.seperate_coords(coords)
@@ -126,7 +127,7 @@ class Boardtest < Minitest::Test
   end
 
   def test_it_can_place_a_ship_in_cells
-    # skip
+    #skip
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
     board.place(cruiser, ["A1", "A2", "A3"])
@@ -136,6 +137,7 @@ class Boardtest < Minitest::Test
   end
 
   def test_valid_placement_full?
+    #skip
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
     board.place(cruiser, ["A1", "A2", "A3"])
@@ -145,6 +147,7 @@ class Boardtest < Minitest::Test
   end
 
   def test_render_no_ship
+    #skip
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
 
@@ -158,6 +161,7 @@ class Boardtest < Minitest::Test
   end
 
   def test_render_ship_invisible
+    #skip
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
 
@@ -173,6 +177,7 @@ class Boardtest < Minitest::Test
   end
 
   def test_render_ship_visible
+    #skip
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
 
@@ -188,6 +193,7 @@ class Boardtest < Minitest::Test
   end
 
   def test_board_can_be_fired_upon
+    #skip
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
     board.place(cruiser, ["A1", "A2", "A3"])
@@ -202,6 +208,7 @@ class Boardtest < Minitest::Test
   end
 
   def test_board_can_fire_and_miss
+    #skip
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
     board.place(cruiser, ["A1", "A2", "A3"])
@@ -234,5 +241,13 @@ class Boardtest < Minitest::Test
                        "D . X . ."
 
       assert_equal expected_board, board.render(true)
+    end
+
+    def test_random_coord_methods
+      board = Board.new
+      cruiser = Ship.new("Cruiser", 3)
+
+      puts board.return_valid_random_coord
+
     end
 end
