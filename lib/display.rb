@@ -1,3 +1,5 @@
+require './lib/game'
+
 class Display
   def initialize
   end
@@ -22,7 +24,55 @@ class Display
     puts "Enter the squares for the #{ship.name} (#{ship.length} spaces):"
   end
 
-  def invalid_placement
+  def invalid_coordinates
     puts "Those are invalid coordinates. Please try again:"
   end
+
+  def already_fired_on
+    puts "Those coordinates have been fired upon already. Please try again:"
+  end
+
+  def ask_for_coord_to_fire_upon
+    puts "Choose a coord to fire on:"
+  end
+
+  def computer_label
+    puts "=============COMPUTER BOARD============="
+  end
+
+  def player_label
+    puts "==============PLAYER BOARD=============="
+  end
+
+  def report_computer_shot(shot, outcome, ship = "")
+    if outcome == 'M'
+      puts "My shot on #{shot} was a miss"
+    elsif outcome == 'X'
+      puts "My shot on #{shot} sunk your #{ship.name}"
+    elsif outcome == 'H'
+      puts "My shot on #{shot} hit your #{ship.name}"
+    end
+  end
+
+  def report_player_shot(shot, outcome, ship = "")
+    if outcome == 'M'
+      puts "Your shot on #{shot} was a miss"
+    elsif outcome == 'X'
+      puts "Your shot on #{shot} sunk my #{ship.name}"
+    elsif outcome == 'H'
+      puts "Your shot on #{shot} hit my #{ship.name}"
+    end
+  end
+
+  def player_wins
+    puts "You won!"
+  end
+
+  def computer_wins
+    puts "I won!"
+  end
+
+  def quit_message
+    puts "You quit the game."
+  end  
 end
