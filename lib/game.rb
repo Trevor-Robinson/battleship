@@ -1,10 +1,17 @@
 require './lib/board'
 require './lib/ship'
+require './lib/display'
 
 class Game
   attr_reader :board
   def initialize
     @board = Board.new
+    @display = Display.new
+  end
+
+  def start_game
+    @display.main_menu
+
   end
 
   def computer_get_random_coord
@@ -27,6 +34,18 @@ class Game
         break
       end
     end
+  end
+
+  def player_place_ship(ship)
+    @display.ask_for_ship_coords(ship)
+    input = gets.chomp
+    coords = input.split.to_a
+    until @board.valid_placement?(ship, coords)
+      @display.invalid_placement
+      input = gets.chomp
+      coords = input.split.to_a
+    end
+    @board.place(ship, coords)
   end
 
   def split_random_coord(coord)
