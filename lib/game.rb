@@ -11,7 +11,22 @@ class Game
 
   def start_game
     @display.main_menu
+  end
 
+  def take_turn
+
+  end
+
+  def coord_to_fire_on
+    @display.ask_for_coord_to_fire_upon
+    input = gets.chomp
+
+    until @board.valid_coord?(input) && !@board.cells[input].fired_upon?
+      @display.invalid_coordinates
+      input = gets.chomp
+    end
+
+    @board.cells[input].fire_upon
   end
 
   def computer_get_random_coord
@@ -41,7 +56,7 @@ class Game
     input = gets.chomp
     coords = input.split.to_a
     until @board.valid_placement?(ship, coords)
-      @display.invalid_placement
+      @display.invalid_coordinates
       input = gets.chomp
       coords = input.split.to_a
     end

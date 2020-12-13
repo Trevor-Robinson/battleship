@@ -18,19 +18,18 @@ class Gametest < Minitest::Test
   end
 
   def test_computer_can_place_ship
+    skip
     game = Game.new
     cruiser = Ship.new("Cruiser", 3)
     submarine = Ship.new("Submarine", 2)
     game.computer_place_ship(cruiser)
     game.computer_place_ship(submarine)
 
-    # puts game.board.render(true)
-
     assert_equal 5, game.board.render(true).count("S")
   end
 
   def test_it_starts
-
+    skip
     game = Game.new
     cruiser = Ship.new("Cruiser", 3)
     submarine = Ship.new("Submarine", 2)
@@ -38,9 +37,14 @@ class Gametest < Minitest::Test
     game.player_place_ship(cruiser)
     game.player_place_ship(submarine)
 
-
-    puts game.board.render(true)
-
     assert_equal 5, game.board.render(true).count("S")
+  end
+
+  def test_it_fires
+    game = Game.new
+    game.coord_to_fire_on
+
+    puts game.board.render
+    assert_equal 1, game.board.render(true).count("M")
   end
 end

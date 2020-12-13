@@ -1,3 +1,5 @@
+require './lib/game'
+
 class Display
   def initialize
   end
@@ -22,7 +24,15 @@ class Display
     puts "Enter the squares for the #{ship.name} (#{ship.length} spaces):"
   end
 
-  def invalid_placement
+  def invalid_coordinates
     puts "Those are invalid coordinates. Please try again:"
+  end
+
+  def ask_for_coord_to_fire_upon
+    puts "Choose a coord to fire on:"
+  end
+
+  def render_computer_board
+    #puts @game.board.render
   end
 end
