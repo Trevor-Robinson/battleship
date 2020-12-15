@@ -17,7 +17,6 @@ class Gametest < Minitest::Test
   end
 
   def test_computer_can_place_ship
-    skip
     game = Game.new
     cruiser = Ship.new("Cruiser", 3)
     submarine = Ship.new("Submarine", 2)
@@ -27,7 +26,7 @@ class Gametest < Minitest::Test
     assert_equal 5, game.computer_board.render(true).count("S")
   end
 
-  def test_it_starts
+  def test_player_can_place_ship
     skip
     game = Game.new
     cruiser = Ship.new("Cruiser", 3)
@@ -39,49 +38,67 @@ class Gametest < Minitest::Test
     assert_equal 5, game.player_board.render(true).count("S")
   end
 
-  def test_player_fires
-     skip
+  def test_player_can_fire
+    skip
     game = Game.new
     game.coord_to_fire_on
     game.coord_to_fire_on
 
-
-    puts game.computer_board.render
     assert_equal 2, game.computer_board.render(true).count("M")
   end
 
   def test_computer_fires
-    skip
     game = Game.new
     game.computer_fire
 
-    puts game.player_board.render
     assert_equal 1, game.player_board.render(true).count("M")
   end
-  def test_take_turn
-    skip
-    game = Game.new
-    cruiser = Ship.new("Cruiser", 3)
-    game.player_board.place(cruiser, ["A1", "A2", "A3"])
 
-    game.take_turn
+  def test_clear_boards
+    game = Game.new
+    game.computer_fire
+    game.computer_fire
+    game.computer_fire
+
+    game.clear_boards
+
+    assert_equal 0, game.player_board.render(true).count("M")
   end
 
-  def test_determine_hit_miss_sunk
-    skip
+  def test_create_ships
     game = Game.new
 
+    cruiser, submarine = game.create_ships
 
-    puts game.determine_hit_miss_sunk(game.computer_fire, game.player_board)
-
+    assert_equal "Cruiser", cruiser.name
+    assert_equal "Sub", submarine.name
   end
 
-  def test_it_plays_game
+  def test_end_game
     game = Game.new
-    game.play_game
 
-    # puts game.computer_board.render(true)
-    # puts game.player_board.render(true)
+    p_cruiser, p_submarine = game.create_ships
+    h_cruiser, h_submarine = game.create_ships
 
+    p_cruiser.hit
+    p_cruiser.hit
+    p_cruiser.hit
+    p_submarine.hit
+    p_submarine.hit
+
+    p_cruiser.sunk?
+    p_submarine.sunk?
+
+    assert_equal true, game.end_game(p_cruiser, p_submarine, h_cruiser, h_submarine)
+  end
+
+  def test_get_coords
+    game = Game.new
+    cruiser, submarine = game.create_ships
+
+    assert_equal ["A2", "A3"], game.get_coords_right(submarine, "A2")
+    assert_equal ["B2", "C2"], game.get_coords_down(submarine, "B2")
+    assert_equal ["B2", "B1"], game.get_coords_left(submarine, "B2")
+    assert_equal ["B2", "A2"], game.get_coords_up(submarine, "B2")
   end
 end

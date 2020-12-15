@@ -19,7 +19,7 @@ class Game
 
   def create_ships
     cruiser = Ship.new("Cruiser", 3)
-    sub = Ship.new("sub", 2)
+    sub = Ship.new("Sub", 2)
     return cruiser, sub
   end
 
@@ -38,15 +38,6 @@ class Game
       return true
     end
   end
-
-  # play = false
-  #   accepted_answer = ['p']
-
-  # while play == false
-  #   setup_game
-  #   answer = gets.chomp
-  #   play = accepted_answer.include?(answer)
-  # end
 
   def play_game
     play = false
@@ -70,14 +61,6 @@ class Game
         play = false
       end
     end
-    # while play == true
-    #   setup_game
-    #   until end_game(@player_cruiser, @player_sub, @computer_cruiser, @computer_sub)
-    #     take_turn
-    #   end
-    #   winner
-    #   play = false
-    # end
   end
 
   def winner
