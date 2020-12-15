@@ -26,7 +26,6 @@ class Board
   end
 
   def check_random_coord(coord)
-    #require 'pry'; binding.pry
     if @cells[coord].empty? == true
       return true
     else
@@ -107,7 +106,6 @@ class Board
     counter = 1
     consecutive_num_decrease = 1
     coord_num.reverse!
-    # require 'pry'; binding.pry
     coord_num.each do |num|
       if num + 1 == coord_num[counter]
         consecutive_num_decrease += 1

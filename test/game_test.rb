@@ -9,13 +9,11 @@ require './lib/display'
 class Gametest < Minitest::Test
 
   def test_computer_can_get_random_coord
-    skip
     game = Game.new
 
     coord = game.computer_get_random_coord
 
     assert_equal true, game.computer_board.cells_to_array.include?(coord)
-
   end
 
   def test_computer_can_place_ship

@@ -3,9 +3,6 @@ require 'minitest/pride'
 require './lib/ship'
 
 class Shiptest < Minitest::Test
-  # def Setup
-  #   @cruiser = Ship.new("Cruiser")
-  # end
 
   def test_it_has_name
     cruiser = Ship.new("Cruiser", 3)
