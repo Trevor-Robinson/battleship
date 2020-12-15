@@ -4,12 +4,16 @@ require './lib/display'
 
 class Game
   attr_reader :player_board,
-              :computer_board
+              :computer_board,
+              :computer_ships,
+              :player_ships
 
   def initialize
     @player_board = Board.new
     @computer_board = Board.new
     @display = Display.new
+    @computer_ships = []
+    @player_ships = []
   end
 
   def clear_boards
@@ -17,26 +21,75 @@ class Game
     @computer_board = Board.new
   end
 
-  def create_ships
-    cruiser = Ship.new("Cruiser", 3)
-    sub = Ship.new("Sub", 2)
-    return cruiser, sub
+  def create_ships_default
+      @computer_ships << Ship.new("Cruiser", 3)
+      @computer_ships << Ship.new("Sub", 2)
+      @player_ships << Ship.new("Cruiser", 3)
+      @player_ships << Ship.new("Sub", 2)
   end
+
+  def create_ship_custom(name, length)
+    Ship.new(name, length)
+  end
+
+  def assign_custom_ships
+    2.times do
+      @display.custom_ship_name
+      input = gets.chomp
+      name = input if input.class == String
+      @display.custom_ship_length
+      input = gets.chomp.to_i
+      length = input if input.class == Integer
+      @computer_ships << create_ship_custom(name, length)
+      @player_ships << create_ship_custom(name, length)
+    end
+  end
+
 
   def setup_game
-    @computer_cruiser, @computer_sub = create_ships
-    computer_place_ship(@computer_cruiser)
-    computer_place_ship(@computer_sub)
-    @player_cruiser, @player_sub = create_ships
-    @display.show_player_board_layout
-    player_place_ship(@player_cruiser)
-    player_place_ship(@player_sub)
+    @display.custom_ship_question
+    input = gets.chomp
+    if input == "n"
+      create_ships_default
+      @computer_ships.each do |ship|
+        computer_place_ship(ship)
+      end
+      @display.show_player_board_layout
+      @player_ships.each do |ship|
+        player_place_ship(ship)
+      end
+    elsif input == "y"
+      assign_custom_ships
+      @computer_ships.each do |ship|
+        computer_place_ship(ship)
+      end
+      @display.show_player_board_layout
+      @player_ships.each do |ship|
+        player_place_ship(ship)
+      end
+    end
   end
 
-  def end_game(player_cruiser, player_sub, computer_cruiser, computer_sub)
-    if (player_cruiser.sunk? && player_sub.sunk?) || (computer_cruiser.sunk? && computer_sub.sunk?)
-      return true
+  def computer_win_condition
+    counter = 0
+    @player_ships.each do |ship|
+      if ship.sunk?
+        counter += 1
+      end
     end
+    return true if counter == 2
+    return false
+  end
+
+  def player_win_condition
+    counter = 0
+    @computer_ships.each do |ship|
+      if ship.sunk?
+        counter += 1
+      end
+    end
+    return true if counter == 2
+    return false
   end
 
   def play_game
@@ -53,10 +106,11 @@ class Game
       play = accepted_answer.include?(answer)
       while play == true
         setup_game
-        until end_game(@player_cruiser, @player_sub, @computer_cruiser, @computer_sub)
+        until player_win_condition || computer_win_condition
           take_turn
         end
         winner
+        sleep(1)
         clear_boards
         play = false
       end
@@ -64,16 +118,16 @@ class Game
   end
 
   def winner
-    if (@player_cruiser.sunk? && @player_sub.sunk?)
+    if computer_win_condition
       @display.computer_wins
-    elsif (@computer_cruiser.sunk? && @computer_sub.sunk?)
+    elsif player_win_condition
       @display.player_wins
     end
   end
 
   def take_turn
     @display.computer_label
-    puts @computer_board.render
+    puts @computer_board.render(true)
     @display.player_label
     puts @player_board.render(true)
     player_shot = coord_to_fire_on

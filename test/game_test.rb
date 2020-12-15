@@ -65,20 +65,31 @@ class Gametest < Minitest::Test
     assert_equal 0, game.player_board.render(true).count("M")
   end
 
-  def test_create_ships
+  def test_create_ships_no_arg
     game = Game.new
 
-    cruiser, submarine = game.create_ships
+    cruiser, submarine = game.create_ships_default
 
     assert_equal "Cruiser", cruiser.name
     assert_equal "Sub", submarine.name
   end
 
-  def test_end_game
+  def test_create_ship_custom
     game = Game.new
 
-    p_cruiser, p_submarine = game.create_ships
-    h_cruiser, h_submarine = game.create_ships
+    ship = game.create_ship_custom("Ship", 2)
+
+
+    assert_equal "Ship", ship.name
+    assert_equal 2, ship.length
+  end
+
+  def test_end_game
+    skip
+    game = Game.new
+
+    p_cruiser, p_submarine = game.create_ships_default
+    h_cruiser, h_submarine = game.create_ships_default
 
     p_cruiser.hit
     p_cruiser.hit
@@ -94,11 +105,18 @@ class Gametest < Minitest::Test
 
   def test_get_coords
     game = Game.new
-    cruiser, submarine = game.create_ships
+    cruiser, submarine = game.create_ships_default
 
     assert_equal ["A2", "A3"], game.get_coords_right(submarine, "A2")
     assert_equal ["B2", "C2"], game.get_coords_down(submarine, "B2")
     assert_equal ["B2", "B1"], game.get_coords_left(submarine, "B2")
     assert_equal ["B2", "A2"], game.get_coords_up(submarine, "B2")
+  end
+
+  def test_custom_ships
+    game = Game.new
+
+    game.play_game
+
   end
 end

@@ -9,6 +9,19 @@ class Display
   Enter p to play. Enter q to quit."
   end
 
+  def custom_ship_question
+    puts "Would you like to play with custom ships?\n"
+    puts "Enter y for Yes. Enter n for No."
+  end
+
+  def custom_ship_name
+    puts "Name your custom ship:"
+  end
+
+  def custom_ship_length
+    puts "How long is your ship? (Max 3)"
+  end
+
   def show_player_board_layout
   puts  "I have laid out my ships on the grid.\n" +
          "You now need to lay out your two ships.\n" +
@@ -74,5 +87,5 @@ class Display
 
   def quit_message
     puts "You quit the game."
-  end  
+  end
 end
